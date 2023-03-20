@@ -26,14 +26,16 @@ const userdetailSchema = new mongoose.Schema( {
 
  userdetailSchema.methods.generateAuthToken = async function(){
     try {
-         console.log(this._id);
+        //  console.log("User_ID",this._id.toString());
          const token = jwt.sign({_id:this._id.toString()},process.env.SECRET_KEY);
+        //  console.log(token);
          this.tokens = this.tokens.concat({token : token})
+        //  console.log(this.tokens);
          await this.save();
          return token
     }
       catch(error){
-        res.send("the error part" + error);
+        // res.send("the error part" + error); 
         console.log("the error part" + error);
       }
   } 
@@ -48,4 +50,4 @@ const userdetailSchema = new mongoose.Schema( {
    });
 
  const User = new  mongoose.model("User", userdetailSchema);
- module.exports = User;
+ module.exports = User; 
