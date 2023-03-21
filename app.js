@@ -35,6 +35,7 @@ app.use(fileUpload({ useTempFiles: true }));
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json())
 app.use(express.static("public"));
 app.use(cookieParser());
 app.use(methodOverride('_method'));
@@ -42,10 +43,7 @@ app.use(methodOverride('_method'));
 const blogSchema = {
   title : String,
   content:String,
-  image: {
-    type: String,
-    required: true,
-  },
+  image: String
     
  };
 
@@ -112,9 +110,11 @@ const blogSchema = {
 app.get("/", function(req,res){
   res.render("login",);  
 })
-app.post('/createFile',async function(req,res){
+app.post("/createFile",async function(req,res){
+  
+  console.log("hello Bois",req.body);
   const product = await Post.create(req.body);
-  res.status(StatusCodes.CREATED).json({ product });
+  res.json({ product });
 })
 app.post("/upload",async function(req,res){
   console.log("Please",req.files);

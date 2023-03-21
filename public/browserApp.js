@@ -2,9 +2,9 @@ const url = "/"
 
 const fileFormDOM = document.querySelector('.file-form')
 console.log(fileFormDOM);
-const nameInputDOM = document.getElementById('#titleinput')
-const priceInputDOM = document.getElementById('#posttext')
-const imageInputDOM = document.getElementById('image')
+const nameInputDOM = document.querySelector('#titleinput')
+const priceInputDOM = document.querySelector('#posttext')
+const imageInputDOM = document.querySelector('#image')
 console.log(imageInputDOM);
 
 // const containerDOM = document.querySelector('.container')
@@ -43,14 +43,19 @@ imageInputDOM.addEventListener('change',async (e)=>{
 
 fileFormDOM.addEventListener('submit',async (e)=>{
 e.preventDefault()
-console.log("DSfsdasf");
+
 const nameValue = nameInputDOM.value;
 const priceValue = priceInputDOM.value;
 try {
  
  const product = {title:nameValue,content:priceValue,image:imageValue}
- 
-  await axios.post("/createFile",product);
+ console.log(product);
+  const data=await axios.post(`/createFile`,{title:nameValue,content:priceValue,image:imageValue},{
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+  },
+  });
+  console.log(data);
   //fetchProducts()
 } catch (error) {
  console.log(error);
